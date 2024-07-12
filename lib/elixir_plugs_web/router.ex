@@ -2,6 +2,7 @@ defmodule ElixirPlugsWeb.Router do
   use ElixirPlugsWeb, :router
 
   import ElixirPlugsWeb.UserAuth
+  alias ElixirPlugsWeb.CheckRolePlug
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -15,6 +16,10 @@ defmodule ElixirPlugsWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  pipeline :admin do
+    plug CheckRolePlug, "admin"
   end
 
   scope "/", ElixirPlugsWeb do
@@ -74,7 +79,6 @@ defmodule ElixirPlugsWeb.Router do
   scope "/", ElixirPlugsWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    live "/admin/dashboard", DashboardLive.Index, :index
     live "/posts", PostLive.Index, :index
     live "/posts/new", PostLive.Index, :new
     live "/posts/:id/edit", PostLive.Index, :edit
@@ -84,6 +88,12 @@ defmodule ElixirPlugsWeb.Router do
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+  end
+
+  scope "/admin", ElixirPlugsWeb do
+    pipe_through [:browser, :admin]
+
+    live "/dashboard", DashboardLive.Index, :index
   end
 
   scope "/", ElixirPlugsWeb do
