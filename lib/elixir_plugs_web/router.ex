@@ -73,6 +73,8 @@ defmodule ElixirPlugsWeb.Router do
 
   scope "/", ElixirPlugsWeb do
     pipe_through [:browser, :require_authenticated_user]
+
+    live "/admin/dashboard", DashboardLive.Index, :index
     live "/posts", PostLive.Index, :index
     live "/posts/new", PostLive.Index, :new
     live "/posts/:id/edit", PostLive.Index, :edit
