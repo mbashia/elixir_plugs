@@ -25,5 +25,4 @@ defmodule ElixirPlugsWeb.CheckRolePlug do
         |> halt()
     end
   end
-
 end
