@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :elixir_plugs, ElixirPlugs.Repo,
   username: "root",
-  password: "Khohisan@7",
+  password: "",
   database: "elixir_plugs_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
