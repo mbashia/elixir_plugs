@@ -3,7 +3,7 @@ defmodule ElixirPlugsWeb.CheckRolePlug do
   alias Phoenix.Controller
   alias ElixirPlugsWeb.Router.Helpers, as: Routes
 
-  def init(pots), do: pots
+  def init(opts), do: opts
 
   def call(conn, required_role) do
     user = conn.assigns[:current_user]
